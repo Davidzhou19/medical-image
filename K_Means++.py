@@ -104,6 +104,8 @@ if __name__=="__main__":
     data=get_data()
     centeroids=get_centroids(data,k) #随机中心
     subCenter=kmeans(data,k,centeroids)
+    cen_list=centeroids.tolist()
+    # print(cen_list[0][0],cen_list[0][1])
 
     for i in range(len(data)):
         if subCenter[:,0][i]==2:
@@ -111,7 +113,11 @@ if __name__=="__main__":
         elif subCenter[:,0][i]==1:
             plt.scatter(data[:, 0][i], data[:, 1][i], c = "green")
         elif subCenter[:,0][i]==0:
-            plt.scatter(data[:, 0][i], data[:, 1][i], c = "black")
+            plt.scatter(data[:, 0][i], data[:, 1][i], c = "cyan")
+
+    for t in range(k):
+        plt.scatter(cen_list[t][0], cen_list[t][1], linewidths = 5, c = "black", marker = "+")
+
     plt.show()
 
 
