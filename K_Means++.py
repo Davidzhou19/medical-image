@@ -103,21 +103,27 @@ if __name__=="__main__":
     k=3
     data=get_data()
     centeroids=get_centroids(data,k) #随机中心
-    subCenter=kmeans(data,k,centeroids)
-    cen_list=centeroids.tolist()
-    # print(cen_list[0][0],cen_list[0][1])
+    plt.ion()
 
-    for i in range(len(data)):
-        if subCenter[:,0][i]==2:
-            plt.scatter(data[:,0][i],data[:,1][i],c="red")
-        elif subCenter[:,0][i]==1:
-            plt.scatter(data[:, 0][i], data[:, 1][i], c = "green")
-        elif subCenter[:,0][i]==0:
-            plt.scatter(data[:, 0][i], data[:, 1][i], c = "cyan")
+    for kk in range(6): #迭代KK次，以获得更好的分簇
+        subCenter,centeroids=kmeans(data,k,centeroids)
+        cen_list=centeroids.tolist()
+        # print(cen_list[0][0],cen_list[0][1])
 
-    for t in range(k):
-        plt.scatter(cen_list[t][0], cen_list[t][1], linewidths = 5, c = "black", marker = "+")
+        for i in range(len(data)):
+            if subCenter[:,0][i]==2:
+                plt.scatter(data[:,0][i],data[:,1][i],c="red")
+            elif subCenter[:,0][i]==1:
+                plt.scatter(data[:, 0][i], data[:, 1][i], c = "green")
+            elif subCenter[:,0][i]==0:
+                plt.scatter(data[:, 0][i], data[:, 1][i], c = "cyan")
 
+        for t in range(k):
+            plt.scatter(cen_list[t][0], cen_list[t][1], linewidths = 5, c = "black", marker = "+")
+
+        plt.pause(0.5)
+
+    plt.ioff()
     plt.show()
 
 
